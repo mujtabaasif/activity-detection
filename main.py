@@ -1,5 +1,6 @@
 import os
 import glob
+import argparse
 import multiprocessing as mp
 from imutils import paths
 from utils.video_to_frames import video_to_frames, frames_to_video
@@ -9,16 +10,29 @@ from compute_hog_features import HOG
 from utils.evaluation import evaluate_bounding_boxes
 
 if __name__ == '__main__':
-    DETECTION_MODEL = "jozhang97/deta-swin-large"
-    DETECTION_SAVE_PREFIX = 'detections'
-    EXTRACT_FRAMES = False
-    OBJECT_DETECTION = False
-    HOG_FEATURES = False
-    CLASSIFIER = False
-    PREDICT = False
-    EVALUATE = False
-    PREDICT_VIDEOS = False
-    CREATE_VIDEO = True
+    args = argparse.ArgumentParser()
+    args.add_argument("--model", type=str, default="jozhang97/deta-swin-large")
+    args.add_argument("--detection_save_prefix", type=str, default="detections")
+    args.add_argument("--extract_frames", type=bool, default=False)
+    args.add_argument("--object_detection", type=bool, default=False)
+    args.add_argument("--hog_features", type=bool, default=False)
+    args.add_argument("--classifier", type=bool, default=False)
+    args.add_argument("--predict", type=bool, default=False)
+    args.add_argument("--evaluate", type=bool, default=False)
+    args.add_argument("--predict_videos", type=bool, default=False)
+    args.add_argument("--create_video", type=bool, default=True)
+    args = args.parse_args()
+
+    DETECTION_MODEL = args.model
+    DETECTION_SAVE_PREFIX = args.detection_save_prefix
+    EXTRACT_FRAMES = args.extract_frames
+    OBJECT_DETECTION = args.object_detection
+    HOG_FEATURES = args.hog_features
+    CLASSIFIER = args.classifier
+    PREDICT = args.predict
+    EVALUATE = args.evaluate
+    PREDICT_VIDEOS = args.predict_videos
+    CREATE_VIDEO = args.create_video
 
     if EXTRACT_FRAMES:
         # Convert videos to frames
@@ -101,9 +115,9 @@ if __name__ == '__main__':
                 hog.predict(image_path, detection_path)
 
     if CREATE_VIDEO:
-        FRAMES_PATHS = [#'detection_results/0/predictions/images/',
-                        #'detection_results/1/predictions/images/',
-                        'detection_results/2/predictions/images/']
+        FRAMES_PATHS = [  # 'detection_results/0/predictions/images/',
+            # 'detection_results/1/predictions/images/',
+            'detection_results/2/predictions/images/']
 
         for FRAMES_PATH in FRAMES_PATHS:
             images = sorted(list(paths.list_images(FRAMES_PATH)))

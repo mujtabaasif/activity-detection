@@ -110,18 +110,3 @@ if __name__ == '__main__':
             video_name = FRAMES_PATH.split('/')[1]
             video_name = os.path.join(FRAMES_PATH.split('/')[0], f"{video_name}_predictions.mp4")
             frames_to_video(FRAMES_PATH, video_name, fps=30)
-
-
-
-
-    # Get the predictions on all videos
-
-    # Load a model
-    # model = YOLO("yolov8s.yaml")  # build a new model from scratch
-    # model = YOLO("yolov8s.pt")  # load a pretrained model (recommended for training)
-
-    # Use the model
-    # model.train(data="configs/activity.yaml", epochs=10)  # train the model
-    # metrics = model.val()  # evaluate model performance on the validation set
-
-    # model.predict('/Users/mujtaba/Codes/Ocluai/detection_results/0/frames/', save=True, save_txt=True, project='detection_results')

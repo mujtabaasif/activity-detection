@@ -1,3 +1,4 @@
+# Usage: python main.py --model jozhang97/deta-swin-large --detection_save_prefix detections --extract_frames True --object_detection True --hog_features True --classifier True --predict True --evaluate True --predict_videos True --create_video True
 import os
 import glob
 import argparse
